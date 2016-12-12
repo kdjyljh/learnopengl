@@ -1,8 +1,4 @@
-#set(CMAKE_BUILD_TYPE Debug)
-#set(CMAKE_BUILD_TYPE Debug CACHE STRING "Build type")
 add_executable(createwindow createwindow.cpp)
 target_link_libraries(createwindow "${COMMON_LIBS}")
 add_executable(triangle triangle.cpp)
 target_link_libraries(triangle ${COMMON_LIBS})
-#add_executable(_triangle _triangle.cpp)
-#target_link_libraries(_triangle ${COMMON_LIBS})
