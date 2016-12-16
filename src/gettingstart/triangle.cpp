@@ -133,7 +133,6 @@ void drawWindow(GLFWwindow *window)
 	glEnableVertexAttribArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
-	
     while (!glfwWindowShouldClose(window)) {
         glfwPollEvents();
 

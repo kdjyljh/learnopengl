@@ -3,22 +3,22 @@
 #include <GL/glew.h>
 #include <string>
 
-char *DEFAULT_VERTEX_PATH = "/home/luojianghua/Code/opengl/code/out/bin/gettingstart/vertex.sd";
-char *DEFAULT_FRAGMENT_PATH = "/home/luojianghua/Code/opengl/code/out/bin/gettingstart/fragment.sd";
 class ShaderHelper
 {
 public:
-    ShaderHelper(char *vPath = DEFAULT_VERTEX_PATH, char *fPath = DEFAULT_FRAGMENT_PATH);
+    ShaderHelper(std::string vPath = "/home/luojianghua/Code/opengl/code/out/bin/gettingstart/vertex.sd",
+                 std::string fPath = "/home/luojianghua/Code/opengl/code/out/bin/gettingstart/fragment.sd");
     ~ShaderHelper();
     void use();
+    bool setUniform1f(char *name, float value);
 
 private:
     bool createProgram();
     bool initSource();
 
 private:
-    char *mVertexShaderFilePath;
-    char *mFragmentShaderFilePath;
+    std::string mVertexShaderFilePath;
+    std::string mFragmentShaderFilePath;
     std::string mVertexShaderSource;
     std::string mFragmentShaderSource;
 

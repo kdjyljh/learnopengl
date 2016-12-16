@@ -2,17 +2,14 @@
 #include <fstream>
 #include <sstream>
 #include <memory.h>
+#include <unistd.h>
 #include "ShaderHelper.h"
+#include "utils.h"
 
-ShaderHelper::ShaderHelper(char *vPath, char *fPath)
+ShaderHelper::ShaderHelper(std::string vPath, std::string fPath)
+    : mVertexShaderFilePath(vPath)
+    , mFragmentShaderFilePath(fPath)
 {
-    if (NULL != vPath) {
-        mVertexShaderFilePath = vPath;
-    }
-    if (NULL != fPath) {
-        mFragmentShaderFilePath = fPath;
-    }
-
     mProgram = 0;
 }
 
@@ -23,27 +20,37 @@ ShaderHelper::~ShaderHelper()
 
 bool ShaderHelper::initSource()
 {
-    if (mVertexShaderSource.empty()) {
-        std::ifstream infile(mVertexShaderFilePath);
-        if (!infile.is_open()) {
-            std::cout << "open file" << mVertexShaderFilePath << "error errorno=" << strerror(errno) << std::endl;
-            return false;
-        }
-        std::stringstream stream;
-        stream << infile.rdbuf();
-        mVertexShaderSource = stream.str();
-    }
+    mVertexShaderSource.clear();
+    mFragmentShaderSource.clear();
 
-    if (mFragmentShaderSource.empty()) {
-        std::ifstream infile(mFragmentShaderFilePath);
-        if (!infile.is_open()) {
-            std::cout << "open file" << mFragmentShaderFilePath << "error errorno=" << strerror(errno) << std::endl;
-            return false;
-        }
-        std::stringstream stream;
-        stream << infile.rdbuf();
-        mFragmentShaderSource = stream.str();
+//    if (mVertexShaderFilePath[0] != '/') {
+//        mVertexShaderFilePath = (std::string(getcwd(NULL, 0)) + "/" + std::string(mVertexShaderFilePath));
+//    }
+//    if (mFragmentShaderFilePath[0] != '/') {
+//        mFragmentShaderFilePath = std::string(getcwd(NULL, 0)) + "/" + std::string(mFragmentShaderFilePath);
+//    }
+
+    std::ifstream vinfile(mVertexShaderFilePath);
+    std::stringstream stream;
+    if (!vinfile.is_open()) {
+        std::cout << "open file " << mVertexShaderFilePath << " failed error:" << strerror(errno) << std::endl;
+        return false;
     }
+    stream << vinfile.rdbuf();
+    mVertexShaderSource = stream.str();
+    stream.str("");
+    vinfile.close();
+
+    std::ifstream finfile(mFragmentShaderFilePath);
+    if (!finfile.is_open()) {
+        std::cout << "open file " << mFragmentShaderFilePath << " failed error:" << strerror(errno) << std::endl;
+        return false;
+    }
+    stream << finfile.rdbuf();
+    mFragmentShaderSource = stream.str();
+    finfile.close();
+
+    return true;
 }
 
 bool ShaderHelper::createProgram()
@@ -52,7 +59,7 @@ bool ShaderHelper::createProgram()
         return false;
     }
 
-    GLint success = 1;
+    GLint success = 0;
     GLchar infoLog[512];
     memset(infoLog, 0, sizeof(infoLog));
     const char *source = NULL;
@@ -113,4 +120,20 @@ void ShaderHelper::use()
     }
 
     glUseProgram(mProgram);
+}
+
+bool ShaderHelper::setUniform1f(char *name, float value)
+{
+    if (0 == mProgram) {
+        if (!createProgram()) {
+            return false;
+        }
+    }
+
+    GLint xoffsetLocation = glGetUniformLocation(mProgram, name);
+    if (-1 == xoffsetLocation) {
+        return false;
+    }
+    glUniform1f(xoffsetLocation, value);
+    return true;
 }
