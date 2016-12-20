@@ -48,17 +48,18 @@ void drawWindow(GLFWwindow *window)
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 
+    glDeleteBuffers(1, &VBO);
+    glDeleteBuffers(1, &EBO);
+
+    ShaderHelper shaderhelper;//helper must be defined before event loop and dou't know why
     while (!glfwWindowShouldClose(window)) {
-glCheckError();
         glfwPollEvents();
 
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        ShaderHelper helper;
-        helper.setUniform1f("xoffset", 0.5f);
-
-        helper.use();
+        shaderhelper.setUniform("xoffset", 0.5f);
+        shaderhelper.use();
 
 		glBindVertexArray(VAO);
         // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -69,8 +70,6 @@ glCheckError();
     }
 
     glDeleteVertexArrays(1, &VAO);
-    glDeleteBuffers(1, &VBO);
-    glDeleteBuffers(1, &EBO);
 }
 
 int main()

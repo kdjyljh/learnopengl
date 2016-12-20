@@ -10,10 +10,11 @@ public:
                  std::string fPath = "/home/luojianghua/Code/opengl/code/out/bin/gettingstart/fragment.sd");
     ~ShaderHelper();
     void use();
-    bool setUniform1f(char *name, float value);
+    bool setUniform(const char *name, float value);
+    GLuint program() {return mProgram;}
+    bool createProgram();
 
 private:
-    bool createProgram();
     bool initSource();
 
 private:

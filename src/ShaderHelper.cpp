@@ -86,6 +86,7 @@ bool ShaderHelper::createProgram()
     if (!success) {
         glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
         std::cout << "compile fragment shader failed: " << infoLog << std::endl;
+        glDeleteShader(vertexShader);
         glDeleteShader(fragmentShader);
         return false;
     }
@@ -122,7 +123,7 @@ void ShaderHelper::use()
     glUseProgram(mProgram);
 }
 
-bool ShaderHelper::setUniform1f(char *name, float value)
+bool ShaderHelper::setUniform(const char *name, float value)
 {
     if (0 == mProgram) {
         if (!createProgram()) {
@@ -135,5 +136,6 @@ bool ShaderHelper::setUniform1f(char *name, float value)
         return false;
     }
     glUniform1f(xoffsetLocation, value);
+//    glCheckError(); //there will always be a error:INVALID_OPERATION and dou't know why
     return true;
 }

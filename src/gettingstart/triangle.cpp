@@ -4,6 +4,7 @@
 #include <GLFW/glfw3.h>
 #include <string>
 #include <iostream>
+#include <math.h>
 
 #include "utils.h"
 
@@ -43,17 +44,19 @@ GLuint indices[] = {  // Note that we start from 0!
 const GLchar *vertexShaderSource = 
 	"#version 330 core\n"
 	"layout (location = 0) in vec3 position;\n"
+    "uniform float xoffset;\n"
 	"void main()\n"
 	"{\n"
-	"	gl_Position = vec4(position.x, position.y, position.z, 1.0);\n"
+    "	gl_Position = vec4(position.x + xoffset, position.y, position.z, 1.0);\n"
 	"}";
 
 const GLchar *fragmentShaderSource = 
-	"#version 330 core\n"
-	"out vec4 color;\n"
+    "#version 330 core\n"
+    "uniform vec4 outColor;\n"
+    "out vec4 color;\n"
 	"void main()\n"
 	"{\n"
-	"	color = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
+    "	color = outColor;\n"
 	"}";
 
 void key_callback(GLFWwindow *window, int key, int scancode, int action, int mode)
@@ -117,6 +120,14 @@ void drawWindow(GLFWwindow *window)
 		return;
 	}
 
+//  GLint  location = glGetUniformLocation(shaderProgram, "ourColor1");
+//    glUniform4f(location, 0.1f, 0.2f, 0.3f, 0.4f);
+//glCheckError();
+// GLint location = glGetUniformLocation(shaderProgram, "ourColor");
+//glUniform4f(location, 1.0f, 0.0f, 1.0f, 1.0f);
+
+
+
     GLuint VBO;
     glGenBuffers(1, &VBO);
 	GLuint VAO;
@@ -133,13 +144,19 @@ void drawWindow(GLFWwindow *window)
 	glEnableVertexAttribArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
+
     while (!glfwWindowShouldClose(window)) {
         glfwPollEvents();
 
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-		glUseProgram(shaderProgram);
+        GLfloat timeValue = glfwGetTime();
+        GLfloat greenValue = (sin(timeValue) / 2) + 0.5;
+        GLint vertexColorLocation = glGetUniformLocation(shaderProgram, "outColor");
+        glUniform4f(vertexColorLocation, 0.0f, 0.5f, 0.0f, 1.0f);
+        glUseProgram(shaderProgram);
+
 		glBindVertexArray(VAO);
         // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		glDrawArrays(GL_TRIANGLES, 0, 6);
