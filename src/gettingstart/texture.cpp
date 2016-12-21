@@ -9,6 +9,7 @@
 #include "utils.h"
 #include "ShaderHelper.h"
 #include "soil/SOIL.h"
+#include "environment.cmake.h"
 
 GLfloat vertices[] = {
      0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,  1.0f, 1.0f,
