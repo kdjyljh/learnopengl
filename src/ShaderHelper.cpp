@@ -123,19 +123,6 @@ void ShaderHelper::use()
     glUseProgram(mProgram);
 }
 
-bool ShaderHelper::setUniform(const char *name, float value)
-{
-    if (0 == mProgram) {
-        if (!createProgram()) {
-            return false;
-        }
-    }
+//template<class T>
+//bool ShaderHelper::setUniform(const char *name, T value)
 
-    GLint xoffsetLocation = glGetUniformLocation(mProgram, name);
-    if (-1 == xoffsetLocation) {
-        return false;
-    }
-    glUniform1f(xoffsetLocation, value);
-//    glCheckError(); //there will always be a error:INVALID_OPERATION and dou't know why
-    return true;
-}

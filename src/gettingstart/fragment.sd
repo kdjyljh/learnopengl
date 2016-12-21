@@ -1,9 +1,15 @@
 #version 330 core
 
-in vec4 ourColor;
+in vec4 myColor;
+in vec2 myTexCoord;
+
 out vec4 color;
+
+uniform sampler2D textureSampler0;
+uniform sampler2D textureSampler1;
 
 void main()
 {
-    color = ourColor;
+    //color = texture(textureSampler0, myTexCoord) * myColor;
+    color = mix(texture(textureSampler0, myTexCoord), texture(textureSampler1, myTexCoord), 0.8);
 }
