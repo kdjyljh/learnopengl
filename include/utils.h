@@ -1,5 +1,6 @@
 #ifndef UTILS_H
 #define UTILS_H
+#include <string>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 GLenum glCheckError_(const char *file, int line);
@@ -12,4 +13,6 @@ void APIENTRY glDebugOutput(GLenum source,
                             GLsizei length,
                             const GLchar *message,
                             const GLvoid *userParam);
+
+std::string getRuntimeDir();
 #endif

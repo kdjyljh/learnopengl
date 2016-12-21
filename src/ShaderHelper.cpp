@@ -4,7 +4,6 @@
 #include <memory.h>
 #include <unistd.h>
 #include "ShaderHelper.h"
-#include "utils.h"
 
 ShaderHelper::ShaderHelper(std::string vPath, std::string fPath)
     : mVertexShaderFilePath(vPath)

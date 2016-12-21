@@ -151,8 +151,8 @@ void drawWindow(GLFWwindow *window)
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        GLfloat timeValue = glfwGetTime();
-        GLfloat greenValue = (sin(timeValue) / 2) + 0.5;
+//        GLfloat timeValue = glfwGetTime();
+//        GLfloat greenValue = (sin(timeValue) / 2) + 0.5;
         GLint vertexColorLocation = glGetUniformLocation(shaderProgram, "outColor");
         glUniform4f(vertexColorLocation, 0.0f, 0.5f, 0.0f, 1.0f);
         glUseProgram(shaderProgram);

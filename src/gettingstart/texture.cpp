@@ -57,6 +57,7 @@ void drawWindow(GLFWwindow *window)
     int width = 0;
     int height = 0;
     unsigned char *image = NULL;
+    std::string file_dir;
 
     GLuint texture0 = 0;
     glGenTextures(1, &texture0);
@@ -65,9 +66,10 @@ void drawWindow(GLFWwindow *window)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    image = SOIL_load_image("/home/luojianghua/Code/opengl/code/out/bin/gettingstart/container.jpg", &width, &height, 0, SOIL_LOAD_RGB);
+    file_dir = (getRuntimeDir() + "/resources/images/container.jpg");
+    image = SOIL_load_image(file_dir.c_str(), &width, &height, 0, SOIL_LOAD_RGB);
     if (NULL == image) {
-        std::cout << "open file error: " << SOIL_last_result() << std::endl;
+        std::cout << "open file:" << file_dir << "error:" << SOIL_last_result() << std::endl;
         return;
     }
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
@@ -79,9 +81,10 @@ void drawWindow(GLFWwindow *window)
     GLuint texture1 = 0;
     glGenTextures(1, &texture1);
     glBindTexture(GL_TEXTURE_2D, texture1);
-    image = SOIL_load_image("/home/luojianghua/Code/opengl/code/out/bin/gettingstart/awesomeface.png", &width, &height, 0, SOIL_LOAD_RGB);
+    file_dir = (getRuntimeDir() + "/resources/images/awesomeface.png");
+    image = SOIL_load_image(file_dir.c_str(), &width, &height, 0, SOIL_LOAD_RGB);
     if (NULL == image) {
-        std::cout << "open file error: " << SOIL_last_result() << std::endl;
+        std::cout << "open file:" << file_dir << "error:" << SOIL_last_result() << std::endl;
         return;
     }
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);

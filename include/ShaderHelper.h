@@ -4,11 +4,13 @@
 #include <string>
 #include <typeinfo>
 
+#include "utils.h"
+
 class ShaderHelper
 {
 public:
-    ShaderHelper(std::string vPath = "/home/luojianghua/Code/opengl/code/out/bin/gettingstart/vertex.sd",
-                 std::string fPath = "/home/luojianghua/Code/opengl/code/out/bin/gettingstart/fragment.sd");
+    ShaderHelper(std::string vPath = getRuntimeDir() + "/resources/shader/texture.vsd",
+                 std::string fPath = getRuntimeDir() + "/resources/shader/texture.fsd");
     ~ShaderHelper();
     void use();
     GLuint program() {return mProgram;}

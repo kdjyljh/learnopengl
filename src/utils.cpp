@@ -1,8 +1,13 @@
 #define GLFW_STATIC
 #include <stdio.h>
-#include <string>
 #include <iostream>
+
 #include "utils.h"
+#include "environment.cmake.h"
+
+#define TO_STRING(str) #str
+#define TMP(x) TO_STRING(x)
+#define RUNTIME_DIR TMP(LEANOPENGL_RUN_DIR)
 
 GLenum glCheckError_(const char *file, int line)
 {
@@ -73,4 +78,9 @@ void APIENTRY glDebugOutput(GLenum source,
     }
 
     printf("\n\n");
+}
+
+std::string getRuntimeDir()
+{
+    return std::string(RUNTIME_DIR);
 }
