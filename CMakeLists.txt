@@ -20,10 +20,13 @@ configure_file(
     "${PROJECT_BINARY_DIR}/include/environment.cmake.h"
     )
 
-add_custom_target(file_copy ALL
+#add_custom_target(file_copy ALL
 #    "${CMAKE_COMMAND}" -E copy ${CMAKE_SOURCE_DIR}/scripts/env_set.sh ${CMAKE_BINARY_DIR}
 #    "${CMAKE_COMMAND}" -E copy_directory ${CMAKE_SOURCE_DIR}/resources ${CMAKE_BINARY_DIR}/resources
 #    file(COPY ${CMAKE_SOURCE_DIR}/resources DESTINATION ${CMAKE_BINARY_DIR})
-    )
-execute_process(COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/scripts/env_set.sh ${CMAKE_BINARY_DIR})
-    file(COPY ${CMAKE_SOURCE_DIR}/resources DESTINATION ${CMAKE_BINARY_DIR})
+#    )
+
+#execute_process(COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/scripts/env_set.sh ${CMAKE_BINARY_DIR})
+
+file(COPY ${CMAKE_SOURCE_DIR}/scripts/env_set.sh DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY ${CMAKE_SOURCE_DIR}/resources DESTINATION ${CMAKE_BINARY_DIR})
