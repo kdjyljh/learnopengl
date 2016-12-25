@@ -9,8 +9,8 @@
 class ShaderHelper
 {
 public:
-    ShaderHelper(std::string vPath = getRuntimeDir() + "/resources/shader/texture.vsd",
-                 std::string fPath = getRuntimeDir() + "/resources/shader/texture.fsd");
+    ShaderHelper(std::string vPath = "texture.vsd",
+                 std::string fPath = "texture.fsd");
     ~ShaderHelper();
     void use();
     GLuint program() {return mProgram;}
@@ -46,10 +46,14 @@ public:
         return true;
     }
 
+    bool setUniform(const char *name, MY_GL_TYPE type, void *value, GLsizei count = 1);
+
 private:
     bool initSource();
 
 private:
+    const std::string SHADER_DIR;
+
     std::string mVertexShaderFilePath;
     std::string mFragmentShaderFilePath;
     std::string mVertexShaderSource;

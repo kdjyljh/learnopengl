@@ -3,11 +3,13 @@
 #include <sstream>
 #include <memory.h>
 #include <unistd.h>
+
 #include "ShaderHelper.h"
 
 ShaderHelper::ShaderHelper(std::string vPath, std::string fPath)
-    : mVertexShaderFilePath(vPath)
-    , mFragmentShaderFilePath(fPath)
+    : SHADER_DIR(getRuntimeDir() + "/resources/shader/")
+    , mVertexShaderFilePath(SHADER_DIR + vPath)
+    , mFragmentShaderFilePath(SHADER_DIR + fPath)
 {
     mProgram = 0;
 }
@@ -108,6 +110,49 @@ bool ShaderHelper::createProgram()
 
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
+    return true;
+}
+
+bool ShaderHelper::setUniform(const char *name, MY_GL_TYPE type, void *value, GLsizei count)
+{
+    if (0 == mProgram) {
+        if (!createProgram()) {
+            return false;
+        }
+    }
+
+    GLint location = glGetUniformLocation(mProgram, name);
+    if (-1 == location) {
+        return false;
+    }
+
+    glCheckError();
+
+    switch(type) {
+    case MY_GL_TYPE_1F:
+    {
+        glUniform1f(location, *static_cast<GLfloat*>(value));
+        break;
+    }
+    case MY_GL_TYPE_1UI:
+    {
+        glUniform1ui(location, *static_cast<GLuint*>(value));
+        break;
+    }
+    case MY_GL_TYPE_1I:
+    {
+        glUniform1i(location, *static_cast<GLint*>(value));
+        break;
+    }
+    case MY_GL_TYPE_MATRIX4FV:
+    {
+        glUniformMatrix4fv(location, count, GL_FALSE, static_cast<GLfloat*>(value));
+        break;
+    }
+    defalte:
+        break;
+    }
+
     return true;
 }
 
