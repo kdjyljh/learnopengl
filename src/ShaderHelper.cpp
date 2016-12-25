@@ -126,8 +126,6 @@ bool ShaderHelper::setUniform(const char *name, MY_GL_TYPE type, void *value, GL
         return false;
     }
 
-    glCheckError();
-
     switch(type) {
     case MY_GL_TYPE_1F:
     {
