@@ -23,7 +23,10 @@ target_link_libraries(transformation ${GS_COMMON_LIBS})
 add_executable(coordinate coordinate.cpp)
 target_link_libraries(coordinate ${GS_COMMON_LIBS})
 
-set_target_properties(createwindow triangle shader texture transformation coordinate
+add_executable(camera camera.cpp)
+target_link_libraries(camera ${GS_COMMON_LIBS})
+
+set_target_properties(createwindow triangle shader texture transformation coordinate camera
     PROPERTIES RUNTIME_OUTPUT_DIRECTORY_DEBUG ${PROJECT_BINARY_DIR}/bin/)
 
 #add_custom_target(shaderfile_copy ALL
