@@ -147,6 +147,10 @@ bool ShaderHelper::setUniform(const char *name, MY_GL_TYPE type, void *value, GL
         glUniformMatrix4fv(location, count, GL_FALSE, static_cast<GLfloat*>(value));
         break;
     }
+    case MY_GL_TYPE_3FV:
+    {
+        glUniform3fv(location, count, static_cast<GLfloat*>(value));
+    }
     defalte:
         break;
     }

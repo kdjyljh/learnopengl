@@ -48,6 +48,9 @@ public:
 
     bool setUniform(const char *name, MY_GL_TYPE type, void *value, GLsizei count = 1);
 
+    inline void setVertexPath(std::string path);
+    inline void setFragmentPath(std::string path);
+
 private:
     bool initSource();
 
@@ -61,4 +64,14 @@ private:
 
     GLuint mProgram;
 };
+
+inline void ShaderHelper::setVertexPath(std::string path)
+{
+    mVertexShaderFilePath = SHADER_DIR + path;
+}
+
+inline void ShaderHelper::setFragmentPath(std::string path)
+{
+    mFragmentShaderFilePath = SHADER_DIR + path;
+}
 #endif

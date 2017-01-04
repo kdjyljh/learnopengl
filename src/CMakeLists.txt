@@ -1,4 +1,6 @@
 add_subdirectory(gettingstart)
+add_subdirectory(lighting)
+
 set(SRC_FILE utils.cpp ShaderHelper.cpp)
 
 include_directories(${COMMON_INCLUDE_DIR})

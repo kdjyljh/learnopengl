@@ -9,6 +9,7 @@ enum MY_GL_TYPE
     MY_GL_TYPE_1F,
     MY_GL_TYPE_1UI,
     MY_GL_TYPE_1I,
+    MY_GL_TYPE_3FV,
     MY_GL_TYPE_MATRIX4FV
 };
 
