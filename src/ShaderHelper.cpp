@@ -113,7 +113,7 @@ bool ShaderHelper::createProgram()
     return true;
 }
 
-bool ShaderHelper::setUniform(const char *name, MY_GL_TYPE type, void *value, GLsizei count)
+bool ShaderHelper::setUniform(const char *name, MY_GL_TYPE type, const void *value, GLsizei count)
 {
     if (0 == mProgram) {
         if (!createProgram()) {
@@ -129,27 +129,27 @@ bool ShaderHelper::setUniform(const char *name, MY_GL_TYPE type, void *value, GL
     switch(type) {
     case MY_GL_TYPE_1F:
     {
-        glUniform1f(location, *static_cast<GLfloat*>(value));
+        glUniform1f(location, *static_cast<GLfloat*>(const_cast<void*>(value)));
         break;
     }
     case MY_GL_TYPE_1UI:
     {
-        glUniform1ui(location, *static_cast<GLuint*>(value));
+        glUniform1ui(location, *static_cast<GLuint*>(const_cast<void*>(value)));
         break;
     }
     case MY_GL_TYPE_1I:
     {
-        glUniform1i(location, *static_cast<GLint*>(value));
+        glUniform1i(location, *static_cast<GLint*>(const_cast<void*>(value)));
         break;
     }
     case MY_GL_TYPE_MATRIX4FV:
     {
-        glUniformMatrix4fv(location, count, GL_FALSE, static_cast<GLfloat*>(value));
+        glUniformMatrix4fv(location, count, GL_FALSE, static_cast<GLfloat*>(const_cast<void*>(value)));
         break;
     }
     case MY_GL_TYPE_3FV:
     {
-        glUniform3fv(location, count, static_cast<GLfloat*>(value));
+        glUniform3fv(location, count, static_cast<GLfloat*>(const_cast<void*>(value)));
         break;
     }
     defalte:

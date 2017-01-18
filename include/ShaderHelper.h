@@ -46,7 +46,7 @@ public:
         return true;
     }
 
-    bool setUniform(const char *name, MY_GL_TYPE type, void *value, GLsizei count = 1);
+    bool setUniform(const char *name, MY_GL_TYPE type, const void *value, GLsizei count = 1);
 
     inline void setVertexPath(std::string path);
     inline void setFragmentPath(std::string path);
